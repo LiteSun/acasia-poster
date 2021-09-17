@@ -3,9 +3,6 @@
     <el-col :span="12">
       <div id="poster-preview"
         :style="{'cursor': imageUrl ? 'move' : 'default'}"
-        @mousedown="mouseDown($event)"
-        @mousemove="mouseMove($event)"
-        @mouseup="mouseUp($event)"
       >
         <img class="author-img" v-if="imageUrl" :src="imageUrl" ref="avatar"
           :style="{'width': avatarPos.width + 'vh', 'height': avatarPos.height + 'vh', 'left': avatarPos.left + 'vh', 'top': avatarPos.top + 'vh'}"
@@ -14,8 +11,8 @@
         <img class="poster-template" src="meetup.jpg">
         <div class="poster-content">
           <div class="title">{{ title }}</div>
-          <div class="name" :style="{'font-size': 3.7 * nameFontSize + 'vh'}">{{ name }}</div>
-          <div class="date" :style="{'font-size': 2.3 * topicFontSize + 'vh'}">{{ date }}</div>
+          <div class="name" :style="{'font-size': '3.7vh'}">{{ name }}</div>
+          <div class="date" :style="{'font-size': '2.3vh'}">{{ date }}</div>
           <div class="time">{{ time }}</div>
           <div class="location">{{ location }}</div>
         </div>
@@ -260,12 +257,12 @@ h1 {
       }
 
       .name {
-        font-family: 'SourceHanSerifSC', 'Open Sans';
-        font-size: 3.7vh;
+        font-weight: bold;
+        font-size: 5vh;
         top: 55vh;
         position: absolute;
         left: 3.3vh;
-        letter-spacing: 1vh;
+        letter-spacing: 0.5vh;
       }
 
       .topic {
