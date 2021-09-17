@@ -21,7 +21,7 @@ $ npm run start
 $ npm run generate
 ```
 
-## Adapt To Your Own Events 
+## Adapt To Your Own Events
 
 1. Change `router.base` in `nuxt.config.js` to be the base of your server path
 2. Change the form in `pages/index.vue`.
