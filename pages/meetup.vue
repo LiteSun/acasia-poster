@@ -15,6 +15,17 @@
           <div class="date" :style="{'font-size': '2.3vh'}">{{ date }}</div>
           <div class="time">{{ time }}</div>
           <div class="location">{{ location }}</div>
+          <div class="qr-code-container"
+          >
+          <div class="content">
+            <div class="qr-code"><img src="qr-code.png"/></div>
+            <p class="desc">扫码关注</p>
+          </div>
+          <div class="content">
+            <div class="qr-code"><img src="qr-code.png"/></div>
+            <p class="desc">扫码关注</p>
+          </div>
+          </div>
         </div>
       </div>
     </el-col>
@@ -299,6 +310,38 @@ h1 {
         font-weight: bold;
         color: #fff;
         letter-spacing: 0.1vh;
+        word-break: break-all;
+        width: 21vh;
+        text-align: left;
+      }
+      .qr-code-container {
+        width: 23vh;
+        height: 13vh;
+        position: absolute;
+        top: 77vh;
+        left: 26vh;
+        display: flex;
+        justify-content: center
+      }
+      .content{
+        margin: 1vh;
+        width: 10vh;
+        height: 10vh;
+        background-color: #fff;
+        border-radius: 1vh;
+      }
+      .qr-code {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5vh;
+      }
+      .qr-code img {
+        width: 95%;
+      }
+      .desc {
+        color: #fff;
+        margin: 1vh 0 0 0;
+        font-size: 1.8vh;
       }
 
 .el-form-item {
