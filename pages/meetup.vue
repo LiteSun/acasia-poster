@@ -13,11 +13,11 @@
           <div class="time">{{ time }}</div>
           <div class="location">{{ location }}</div>
           <div class="qr-code-container">
-          <div class="content" v-for="item in qrCodeArr" :key="item">
+          <div class="content" v-for="(item,index) in qrCodeArr" :key="item">
             <div class="qr-code">
             <img :src="item" ref="avatar" />
             </div>
-            <p class="desc">扫码关注</p>
+            <p class="desc">{{qrCodeDesc[`desc${++index}`]}}</p>
           </div>
           </div>
         </div>
@@ -56,6 +56,12 @@
               list-type="picture">
               <el-button size="small" type="primary">添加二维码</el-button>
             </el-upload>
+        </el-form-item>
+          <el-form-item label="二维码-1-描述" v-if="qrCodeArr.length >= 1">
+          <el-input v-model="qrCodeDesc.desc1" />
+        </el-form-item>
+          <el-form-item label="二维码-2-描述" v-if="qrCodeArr.length === 2">
+          <el-input v-model="qrCodeDesc.desc2" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="download()"
@@ -135,7 +141,8 @@ export default Vue.extend({
       avatarInput: null,
       isDownloading: false,
       posterBase64: '',
-      qrCodeArr: []
+      qrCodeArr: [],
+      qrCodeDesc: {desc1:'',desc2:''},
     };
   },
 
@@ -161,6 +168,7 @@ export default Vue.extend({
           arrList.push(window.URL.createObjectURL(file.raw))
         })
         this.qrCodeArr = arrList;
+        this.qrCodeDesc = {desc1:'',desc2:''}
       },
       handlePreview(file:any) {
         console.log(file);
