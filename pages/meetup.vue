@@ -321,19 +321,17 @@ h1 {
         justify-content: center
       }
       .content{
-        margin: 1vh;
+        margin-right: 1vh;
         width: 10vh;
         height: 10vh;
         background-color: #fff;
         border-radius: 1vh;
       }
       .qr-code {
-        display: flex;
-        justify-content: center;
-        margin-top: 0.5vh;
+        padding: 0.5vh;
       }
       .qr-code img {
-        width: 95%;
+        width: 100%;
       }
       .desc {
         color: #fff;
