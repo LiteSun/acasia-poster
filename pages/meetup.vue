@@ -169,10 +169,9 @@ export default Vue.extend({
       qrCodeChange(file, fileList) {
         const arr:any = [];
         fileList.map((item: any) => {
-          arr.push(window.URL.createObjectURL(file.raw));
+          arr.push(window.URL.createObjectURL(item.raw));
         })
         this.qrCodeArr = arr;
-        console.log('this.qrCodeArr: ', this.qrCodeArr);
       },
     setAvatar() {
       if (this.$refs.avatarInput) {
