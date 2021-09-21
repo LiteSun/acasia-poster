@@ -4,9 +4,6 @@
       <div id="poster-preview"
         :style="{'cursor': imageUrl ? 'move' : 'default'}"
       >
-        <img class="author-img" v-if="imageUrl" :src="imageUrl" ref="avatar"
-          :style="{'width': avatarPos.width + 'vh', 'height': avatarPos.height + 'vh', 'left': avatarPos.left + 'vh', 'top': avatarPos.top + 'vh'}"
-        >
         <div class="bg"></div>
         <img class="poster-template" src="meetup.jpg">
         <div class="poster-content">
@@ -15,14 +12,11 @@
           <div class="date" :style="{'font-size': '2.3vh'}">{{ date }}</div>
           <div class="time">{{ time }}</div>
           <div class="location">{{ location }}</div>
-          <div class="qr-code-container"
-          >
-          <div class="content">
-            <div class="qr-code"><img src="qr-code.png"/></div>
-            <p class="desc">扫码关注</p>
-          </div>
-          <div class="content">
-            <div class="qr-code"><img src="qr-code.png"/></div>
+          <div class="qr-code-container">
+          <div class="content" v-for="item in qrCodeArr" :key="item">
+            <div class="qr-code">
+            <img :src="item" ref="avatar" />
+            </div>
             <p class="desc">扫码关注</p>
           </div>
           </div>
@@ -50,6 +44,19 @@
         <el-form-item label="地点">
           <el-input v-model="location" />
         </el-form-item>
+            <el-form-item label="二维码照片">
+            <el-upload
+              class="upload-demo"
+              :auto-upload="false"
+              :limit="2"
+              :on-change="qrCodeChange"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              list-type="picture">
+              <el-button size="small" type="primary">添加二维码</el-button>
+            </el-upload>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="download()"
           >
@@ -65,8 +72,6 @@
 import Vue from 'vue';
 // @ts-ignore
 import domtoimage from 'retina-dom-to-image';
-import trackZhRaw from './data/track-zh';
-import trackEnRaw from './data/track-en';
 import trackKeyRaw from './data/track-keynote';
 
 type SpeechInfo = {
@@ -116,9 +121,6 @@ function getTrackInfo(raw: string, isZh: boolean): SpeechInfo[] {
   return infos;
 }
 
-const trackZh = getTrackInfo(trackZhRaw, true);
-const trackEn = getTrackInfo(trackEnRaw, false);
-
 export default Vue.extend({
   data() {
     return {
@@ -133,29 +135,7 @@ export default Vue.extend({
       avatarInput: null,
       isDownloading: false,
       posterBase64: '',
-
-
-      // nameFontSize: 1,
-      // topicFontSize: 1,
-
-      // avatarDefaultPos: {
-      //   width: 0,
-      //   height: 0,
-      //   top: 0,
-      //   left: 0
-      // },
-      // avatarPos: {
-      //   width: 0,
-      //   height: 0,
-      //   top: 0,
-      //   left: 0
-      // },
-      // avatarZoom: 1,
-      // isMouseDown: false,
-      // mouseX: 0,
-      // mouseY: 0,
-
-      // lang: 'zh'
+      qrCodeArr: []
     };
   },
 
@@ -175,7 +155,25 @@ export default Vue.extend({
           link.click();
         })
     },
-
+      handleRemove(file:any, fileList:any) {
+        let arrList:any = []
+        fileList.map((file: any) => {
+          arrList.push(window.URL.createObjectURL(file.raw))
+        })
+        this.qrCodeArr = arrList;
+      },
+      handlePreview(file:any) {
+        console.log(file);
+      },
+      // @ts-ignore
+      qrCodeChange(file, fileList) {
+        const arr:any = [];
+        fileList.map((item: any) => {
+          arr.push(window.URL.createObjectURL(file.raw));
+        })
+        this.qrCodeArr = arr;
+        console.log('this.qrCodeArr: ', this.qrCodeArr);
+      },
     setAvatar() {
       if (this.$refs.avatarInput) {
         (this.$refs.avatarInput as HTMLElement).click();
@@ -391,3 +389,7 @@ h1 {
   color: #aaa;
 }
 </style>
+
+function item(item: any, arg1: (any: any) => void) {
+  throw new Error('Function not implemented.');
+}
