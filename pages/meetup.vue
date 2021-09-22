@@ -12,7 +12,7 @@
           <div class="date" :style="{'font-size': '2.3vh'}">{{ date }}</div>
           <div class="time">{{ time }}</div>
           <div class="location">{{ location }}</div>
-          <div class="qr-code-container">
+          <div class="qr-code-container" :style="{'left': qrCodeArr.length === 2 ? '27vh' : '28vh'}">
           <div class="content" v-for="(item,index) in qrCodeArr" :key="item">
             <div class="qr-code">
             <img :src="item" ref="avatar" />
