@@ -57,21 +57,61 @@ export default Vue.extend({
     };
   },
 
-  mounted() {},
+  async mounted() {
+    const ids = [
+      "dickens7",
+      "Serendipity96",
+      "lianghao208",
+      "朱骏杰",
+      "boolean",
+      "Molio-tan",
+      "nic-chen",
+      "miss-you",
+      "zhendongcmss",
+      "tao12345666333",
+      "Rakuten",
+      "zenozeng",
+      "okaybase",
+      "Donghui0",
+      "Demogorgon314",
+      "tokers",
+      "nodyang",
+      "liuxiran",
+      "sober-wang",
+      "NothingNodust",
+      "paoying",
+      "batman-ezio",
+      "mousycoder",
+      "zhangbing17",
+      "lidaohang",
+      "Sindweller",
+      "starsz",
+      "Jaycean",
+      "TkClark",
+      "codjust",
+    ];
+    // for (const id of ids) {
+    //   this.github = id;
+    //   await this.download();
+    // }
+  },
 
   methods: {
-    download() {
-      this.isDownloading = true;
-      domtoimage
-        .toJpeg(document.getElementById("poster-preview"))
-        .then((url: string) => {
-          this.posterBase64 = url;
-          this.isDownloading = false;
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = this.title + ".jpeg";
-          link.click();
-        });
+    async download() {
+      return new Promise((resolve, reject) => {
+        this.isDownloading = true;
+        domtoimage
+          .toJpeg(document.getElementById("poster-preview"))
+          .then((url: string) => {
+            this.posterBase64 = url;
+            this.isDownloading = false;
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = this.github + ".jpeg";
+            link.click();
+            resolve(true);
+          });
+      });
     },
     handleRemove(file: any, fileList: any) {
       let arrList: any = [];
@@ -198,11 +238,9 @@ h1 {
 
 .title {
   font-weight: bold;
-  position: absolute;
-  top: 260px;
-  left: 360px;
   font-size: 3vh;
   font-family: "Alibaba-PuHuiTi";
+  margin-top: 270px;
 }
 
 .name {
