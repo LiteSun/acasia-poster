@@ -238,7 +238,7 @@ h1 {
 
 .title {
   font-weight: bold;
-  font-size: 3vh;
+  font-size: 32px;
   font-family: "Alibaba-PuHuiTi";
   margin-top: 270px;
 }
