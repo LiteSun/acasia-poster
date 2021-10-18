@@ -8,7 +8,7 @@
         <div class="bg"></div>
         <img class="poster-template" src="meetup.png" />
         <div class="poster-content">
-          <div class="title">{{ github }}</div>
+          <div class="title">{{ github || "ID 显示在这里" }}</div>
         </div>
       </div>
     </el-col>
@@ -23,10 +23,12 @@
       </el-row>
       <el-form>
         <el-form-item label="GitHub">
-          <el-input v-model="github" />
+          <el-input type="textarea" :rows="20" v-model="githubList" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="download()"> 生成海报 </el-button>
+          <el-button type="primary" @click="handleDownload()">
+            生成海报
+          </el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -41,6 +43,7 @@ import domtoimage from "retina-dom-to-image";
 export default Vue.extend({
   data() {
     return {
+      githubList: "",
       github: "",
       title: "",
       date: "",
@@ -57,44 +60,7 @@ export default Vue.extend({
     };
   },
 
-  async mounted() {
-    const ids = [
-      "dickens7",
-      "Serendipity96",
-      "lianghao208",
-      "朱骏杰",
-      "boolean",
-      "Molio-tan",
-      "nic-chen",
-      "miss-you",
-      "zhendongcmss",
-      "tao12345666333",
-      "Rakuten",
-      "zenozeng",
-      "okaybase",
-      "Donghui0",
-      "Demogorgon314",
-      "tokers",
-      "nodyang",
-      "liuxiran",
-      "sober-wang",
-      "NothingNodust",
-      "paoying",
-      "batman-ezio",
-      "mousycoder",
-      "zhangbing17",
-      "lidaohang",
-      "Sindweller",
-      "starsz",
-      "Jaycean",
-      "TkClark",
-      "codjust",
-    ];
-    // for (const id of ids) {
-    //   this.github = id;
-    //   await this.download();
-    // }
-  },
+  async mounted() {},
 
   methods: {
     async download() {
@@ -112,6 +78,13 @@ export default Vue.extend({
             resolve(true);
           });
       });
+    },
+    async handleDownload() {
+      const ids = this.githubList.split("\n").map((item) => item.trim());
+      for (const id of ids) {
+        this.github = id;
+        await this.download();
+      }
     },
     handleRemove(file: any, fileList: any) {
       let arrList: any = [];
