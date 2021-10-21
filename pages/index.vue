@@ -6,7 +6,7 @@
         :style="{ cursor: imageUrl ? 'move' : 'default' }"
       >
         <div class="bg"></div>
-        <img class="poster-template" src="meetup.png" />
+        <img class="poster-template" :src='image' />
         <div class="poster-content">
           <div class="title">{{ github || "ID 显示在这里" }}</div>
         </div>
@@ -22,6 +22,9 @@
         <h1>Apache APISIX Meetup 邀请函生成器</h1>
       </el-row>
       <el-form>
+        <el-form-item label="底图">
+          <el-input :rows="20" v-model="image" />
+        </el-form-item>
         <el-form-item label="GitHub">
           <el-input type="textarea" :rows="20" v-model="githubList" />
         </el-form-item>
@@ -57,6 +60,7 @@ export default Vue.extend({
       posterBase64: "",
       qrCodeArr: [],
       qrCodeDesc: { desc1: "", desc2: "" },
+      image: "https://static.apiseven.com/202108/1634781296432-f04bad15-1d57-4fb7-ae55-ce3e7bee439d.png"
     };
   },
 
